@@ -1,10 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Formulario from './components/Formulario';
+import Cancion from './components/Cancion';
+
+import axios from 'axios';
 
 function App() {
 
   const [busquedaletra, setBusquedaLetra] = useState({});
   const [letra, setLetra] = useState('');
+  const [informacion, setInformacion] = useState({});
 
   const { artista, cancion } = busquedaletra;
 
@@ -13,10 +17,18 @@ function App() {
     if(Object.keys(busquedaletra).length === 0) return;
 
     const callAPI = async() => {
-      const url = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
-      const api = await fetch(url);
-      const respuesta = await api.json();
-      console.log(respuesta.lyrics);
+      const urlLetra = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
+      const urlArtista = `https://www.theaudiodb.com/api/v1/json/1/search.php?s=${artista}`;
+
+      const [letra, informacion] = await Promise.all([
+
+        axios.get(urlLetra),
+        axios.get(urlArtista)
+
+      ]);
+
+      setLetra(letra.data.lyrics);
+      setInformacion(informacion.data.artists[0]);
     }
     callAPI();
 
@@ -28,6 +40,27 @@ function App() {
       <Formulario
         setBusquedaLetra={setBusquedaLetra}
       />
+
+      <div className="container mt-5">
+
+        <div className="row">
+
+          <div className="col-md-6">
+
+          </div>
+
+          <div className="col-md-6">
+
+            <Cancion
+              letra={letra}
+            />
+
+          </div>
+
+
+        </div>
+
+      </div>
 
     </Fragment>
   );
