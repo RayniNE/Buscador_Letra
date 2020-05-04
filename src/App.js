@@ -13,9 +13,11 @@ function App() {
 
   const { artista, cancion } = busquedaletra;
 
+
   useEffect(() => {
 
     if(Object.keys(busquedaletra).length === 0) return;
+
 
     const callAPI = async() => {
       const urlLetra = `https://api.lyrics.ovh/v1/${artista}/${cancion}`;
