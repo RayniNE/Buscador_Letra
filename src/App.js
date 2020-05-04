@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Formulario from './components/Formulario';
 import Cancion from './components/Cancion';
+import Artista from './components/Artista';
 
 import axios from 'axios';
 
@@ -47,6 +48,9 @@ function App() {
 
           <div className="col-md-6">
 
+            <Artista
+              informacion={informacion}
+            />
           </div>
 
           <div className="col-md-6">
