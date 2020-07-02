@@ -32,6 +32,15 @@ const Formulario = ({setBusquedaLetra }) => {
         setBusquedaLetra(busqueda)
     }
 
+    const onKeyDownHandler = e => {
+        if(e.key === 13){
+            buscarInformacion();
+        }
+        else{
+            return;
+        }
+    }
+
     return (
         <div className="bg-info">
 
@@ -45,6 +54,7 @@ const Formulario = ({setBusquedaLetra }) => {
                     <form
                         className="col card text-white bg-transparent mb-5 pt-5 pb-2"
                         onSubmit={buscarInformacion}
+                        onKeyDown={onKeyDownHandler}
                     >
 
                         <fieldset>
